@@ -7,10 +7,24 @@
     <uses-sdk android:minSdkVersion="8" />
 
     <application
+        android:name=".EDApplication"
+        android:debuggable="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
+        <receiver
+            android:name=".widgets.EDWidgetProvider"
+            android:label="@string/widget_name" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".services.WidgetUpdateService" >
+        </service>
     </application>
 
 </manifest>

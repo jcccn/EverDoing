@@ -3,5 +3,6 @@
 
     <string name="hello">Hello, EverDoing!</string>
     <string name="app_name">EverDoing</string>
+    <string name="widget_name">EverDoing</string>
 
 </resources>
