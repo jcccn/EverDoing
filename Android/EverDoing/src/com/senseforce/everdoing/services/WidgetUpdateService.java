@@ -48,9 +48,11 @@ public class WidgetUpdateService extends Service {
 						
 						updateViews.setTextViewText(R.id.widget_item_0, "get up");
 						updateViews.setTextViewText(R.id.widget_item_1, "have breakfast");
-						updateViews.setTextViewText(R.id.widget_item_2, "have lunch");
-						updateViews.setTextViewText(R.id.widget_item_3, "take a nap");
-						updateViews.setTextViewText(R.id.widget_item_4, "have dinner");
+						updateViews.setTextViewText(R.id.widget_item_2, "take a nap");
+						updateViews.setTextViewText(R.id.widget_item_3, "have lunch");
+						updateViews.setTextViewText(R.id.widget_item_4, "take a nap");
+						updateViews.setTextViewText(R.id.widget_item_5, "have dinner");
+						updateViews.setTextViewText(R.id.widget_item_6, "go to bed");
 						
 						Intent intent = new Intent(WidgetUpdateService.this, MainActivity.class);
 						PendingIntent pendingintent = PendingIntent.getActivity(WidgetUpdateService.this, 0, intent, 0);
