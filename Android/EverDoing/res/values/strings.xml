@@ -9,5 +9,13 @@
     <string name="edit_detail_hint">input the detail</string>
     <string name="button_text_save">Save</string>
     <string name="button_text_giveup">Give up</string>
+    <string name="dialog_title_giveup">Quit without saving?</string>
+    
+    <string name="button_title_ok">OK</string>
+    <string name="button_title_cancel">Cancel</string>
+    <string name="button_title_yes">YES</string>
+    <string name="button_title_no">NO</string>
+    
+    <string name="toast_saved">saved successfully</string>
 
 </resources>

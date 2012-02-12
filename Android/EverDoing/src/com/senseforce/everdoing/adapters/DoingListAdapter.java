@@ -9,23 +9,29 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.senseforce.everdoing.Constants;
 import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
+import com.senseforce.framework.utils.CalendarUtils;
 
 public class DoingListAdapter extends BaseAdapter {
 
-	private String KEY_TIME = "doing_time";
-	private String KEY_WHAT = "doing_what";
+	private String KEY_TIME = "job_time";
+	private String KEY_SUMMARY = "job_summary";
+	private String KEY_DETAIL = "job_detail";
 
 	private ArrayList<HashMap<String, String>> mDoingArrayList = null;
 
 	public DoingListAdapter() {
 		mDoingArrayList = new ArrayList<HashMap<String, String>>();
+		for (int loop = 15; loop >= 0; loop --) {
 		HashMap<String, String> aHashMap = new HashMap<String, String>();
-		aHashMap.put(KEY_TIME, "2011-2-11-23:00");
-		aHashMap.put(KEY_WHAT, "eating some bread");
+		aHashMap.put(KEY_TIME, CalendarUtils.getCurrentDateString(CalendarUtils.HM));
+		aHashMap.put(KEY_SUMMARY, "eating some bread");
+		aHashMap.put(KEY_DETAIL, "again and again");
 		mDoingArrayList.add(aHashMap);
 		aHashMap = null;
+		}
 	}
 
 	public int getCount() {
@@ -45,10 +51,11 @@ public class DoingListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(EDApplication.context);
 			listItemTextView = (TextView) inflater.inflate(R.layout.doing_list_item, null);
+			listItemTextView.setHeight((int)(32 * Constants.density));
 		} else {
 			listItemTextView = (TextView) convertView;
 		}
-		listItemTextView.setText(mDoingArrayList.get(position).get(KEY_WHAT));
+		listItemTextView.setText(mDoingArrayList.get(position).get(KEY_TIME) + " ~ " + mDoingArrayList.get(position).get(KEY_SUMMARY));
 
 		return listItemTextView;
 	}

@@ -1,9 +1,5 @@
 package com.senseforce.everdoing.services;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -15,6 +11,7 @@ import android.widget.RemoteViews;
 import com.senseforce.everdoing.R;
 import com.senseforce.everdoing.activities.EditActivity;
 import com.senseforce.everdoing.widgets.EDWidgetProvider;
+import com.senseforce.framework.utils.CalendarUtils;
 
 public class WidgetUpdateService extends Service {
 	boolean is_run = false;
@@ -38,14 +35,7 @@ public class WidgetUpdateService extends Service {
 				public void run() {
 					is_run = true;
 					while (flag) {
-						Calendar calendar = Calendar.getInstance();
-						Date date = calendar.getTime();
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-						updateViews.setTextViewText(R.id.widget_title, formatter.format(date));
-						date = null;
-						formatter = null;
-						calendar = null;
-						
+						updateViews.setTextViewText(R.id.widget_title, CalendarUtils.getCurrentDateString());
 						updateViews.setTextViewText(R.id.widget_item_0, "get up");
 						updateViews.setTextViewText(R.id.widget_item_1, "have breakfast");
 						updateViews.setTextViewText(R.id.widget_item_2, "take a nap");
