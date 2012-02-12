@@ -13,7 +13,7 @@ import android.os.IBinder;
 import android.widget.RemoteViews;
 
 import com.senseforce.everdoing.R;
-import com.senseforce.everdoing.activities.MainActivity;
+import com.senseforce.everdoing.activities.EditActivity;
 import com.senseforce.everdoing.widgets.EDWidgetProvider;
 
 public class WidgetUpdateService extends Service {
@@ -54,9 +54,9 @@ public class WidgetUpdateService extends Service {
 						updateViews.setTextViewText(R.id.widget_item_5, "have dinner");
 						updateViews.setTextViewText(R.id.widget_item_6, "go to bed");
 						
-						Intent intent = new Intent(WidgetUpdateService.this, MainActivity.class);
+						Intent intent = new Intent(WidgetUpdateService.this, EditActivity.class);
 						PendingIntent pendingintent = PendingIntent.getActivity(WidgetUpdateService.this, 0, intent, 0);
-						updateViews.setOnClickPendingIntent(R.id.widget_title, pendingintent);
+						updateViews.setOnClickPendingIntent(R.id.widget_layout, pendingintent);
 						manager.updateAppWidget(thisWidget, updateViews);
 						try {
 							sleep(60000);

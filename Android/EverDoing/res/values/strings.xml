@@ -4,5 +4,10 @@
     <string name="hello">Hello, EverDoing!</string>
     <string name="app_name">EverDoing</string>
     <string name="widget_name">EverDoing</string>
+    <string name="edit_time_hint">input the time</string>
+    <string name="edit_summary_hint">input the summary</string>
+    <string name="edit_detail_hint">input the detail</string>
+    <string name="button_text_save">Save</string>
+    <string name="button_text_giveup">Give up</string>
 
 </resources>
