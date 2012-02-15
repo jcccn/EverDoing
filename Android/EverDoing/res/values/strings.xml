@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello, EverDoing!</string>
-    <string name="app_name">EverDoing</string>
-    <string name="widget_name">EverDoing</string>
+    <string name="app_name">Everdoing</string>
+    <string name="widget_name">Everdoing</string>
     <string name="edit_time_hint">input the time</string>
     <string name="edit_summary_hint">input the summary</string>
     <string name="edit_detail_hint">input the detail</string>

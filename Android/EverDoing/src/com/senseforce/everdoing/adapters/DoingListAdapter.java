@@ -1,63 +1,36 @@
 package com.senseforce.everdoing.adapters;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.senseforce.everdoing.Constants;
-import com.senseforce.everdoing.EDApplication;
-import com.senseforce.everdoing.R;
-import com.senseforce.framework.utils.CalendarUtils;
+public class DoingListAdapter extends SimpleAdapter {
 
-public class DoingListAdapter extends BaseAdapter {
+	public static String KEY_START_TIME = "job_start_time";
+	public static String KEY_SUMMARY = "job_summary";
+	public static String KEY_DETAIL = "job_detail";
 
-	private String KEY_TIME = "job_time";
-	private String KEY_SUMMARY = "job_summary";
-	private String KEY_DETAIL = "job_detail";
+	public DoingListAdapter(Context context, List<? extends Map<String, ?>> data,
+			int resource, String[] from, int[] to) {
+		super(context, data, resource, from, to);
+		
+	}
 
-	private ArrayList<HashMap<String, String>> mDoingArrayList = null;
+	public static class DoingViewBinder implements ViewBinder {
 
-	public DoingListAdapter() {
-		mDoingArrayList = new ArrayList<HashMap<String, String>>();
-		for (int loop = 15; loop >= 0; loop --) {
-		HashMap<String, String> aHashMap = new HashMap<String, String>();
-		aHashMap.put(KEY_TIME, CalendarUtils.getCurrentDateString(CalendarUtils.HM));
-		aHashMap.put(KEY_SUMMARY, "eating some bread");
-		aHashMap.put(KEY_DETAIL, "again and again");
-		mDoingArrayList.add(aHashMap);
-		aHashMap = null;
+		@Override
+		public boolean setViewValue(View view, Object data,
+				String textRepresentation) {
+			if ((view instanceof TextView) && (data instanceof String)) {
+				((TextView)view).setText((String)data);
+			}
+			return false;
 		}
-	}
-
-	public int getCount() {
-		return mDoingArrayList.size();
-	}
-
-	public Object getItem(int position) {
-		return null;
-	}
-
-	public long getItemId(int position) {
-		return position;
-	}
-
-	public View getView(int position, View convertView, ViewGroup parent) {
-		TextView listItemTextView = null;
-		if (convertView == null) {
-			LayoutInflater inflater = LayoutInflater.from(EDApplication.context);
-			listItemTextView = (TextView) inflater.inflate(R.layout.doing_list_item, null);
-			listItemTextView.setHeight((int)(32 * Constants.density));
-		} else {
-			listItemTextView = (TextView) convertView;
-		}
-		listItemTextView.setText(mDoingArrayList.get(position).get(KEY_TIME) + " ~ " + mDoingArrayList.get(position).get(KEY_SUMMARY));
-
-		return listItemTextView;
+		
 	}
 
 }
