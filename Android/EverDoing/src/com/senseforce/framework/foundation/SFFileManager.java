@@ -1,12 +1,9 @@
 package com.senseforce.framework.foundation;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.content.Context;
 
