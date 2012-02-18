@@ -16,5 +16,6 @@
     <string name="button_title_no">NO</string>
     
     <string name="toast_saved">saved successfully</string>
+    <string name="toast_nothing_saved">nothing to save</string>
 
 </resources>

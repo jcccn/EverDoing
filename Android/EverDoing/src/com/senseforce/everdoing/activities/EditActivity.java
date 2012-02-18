@@ -1,8 +1,12 @@
 package com.senseforce.everdoing.activities;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,7 +14,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
+import com.senseforce.everdoing.data.DoingListDBHelper;
 import com.senseforce.framework.utils.CalendarUtils;
 import com.senseforce.framework.utils.SFHelper;
 import com.senseforce.framework.utils.StringUtils;
@@ -22,6 +28,7 @@ public class EditActivity extends Activity {
 	private EditText mEditTextDetail = null;
 	private Button mButtonSave = null;
 	private Button mButtonGiveup = null;
+	private long timestamp = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,25 +42,64 @@ public class EditActivity extends Activity {
 		mButtonGiveup = (Button)findViewById(R.id.edit_button_giveup);
 		
 		mEditTextTime.setText(CalendarUtils.getCurrentDateString(CalendarUtils.HM));
+		timestamp = Calendar.getInstance().getTimeInMillis();
 		mButtonSave.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				saveRecord();
+				finish();
 			}
 		});
 		mButtonGiveup.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				alertGivingUp();
+				if (needSave()) {
+					alertGivingUp();
+				}
+				else {
+					finish();
+				}
 			}
 		});
 
+		
+		mEditTextSummary.requestFocus();
+	}
+	
+	private boolean needSave() {
+		return ! (StringUtils.isBlank(mEditTextSummary.getText().toString())
+				&& StringUtils.isBlank(mEditTextDetail.getText().toString()));
 	}
 	
 	private void saveRecord() {
+		if (needSave()) {
+			if (StringUtils.isBlank(mEditTextTime.getText().toString())) {
+				mEditTextTime.setText(CalendarUtils.getCurrentDateString(CalendarUtils.HM));
+			}
+			saveRecord(mEditTextTime.getText().toString(),
+					mEditTextSummary.getText().toString(),
+					mEditTextDetail.getText().toString());
+		}
+		else {
+			SFHelper.showToast(R.string.toast_nothing_saved);
+		}
+	}
+	
+	private void saveRecord(String time, String summary, String detail) {
 		SFHelper.showToast(R.string.toast_saved);
+     
+        DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
+        SQLiteDatabase job_db = dbhelper.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(DoingListDBHelper.JOB_ID, timestamp);
+        cv.put(DoingListDBHelper.JOB_TIME, time);
+        cv.put(DoingListDBHelper.JOB_SUMMARY, summary);
+        cv.put(DoingListDBHelper.JOB_DETAIL, detail);
+        job_db.insert(DoingListDBHelper.TABLE_NAME, null, cv);
+        job_db.close();
+        dbhelper.close();
 	}
 	
 	private void alertGivingUp() {
@@ -75,10 +121,8 @@ public class EditActivity extends Activity {
 	@Override
 	public boolean onKeyDown (int keyCode, KeyEvent event) {
 		if (KeyEvent.KEYCODE_BACK == keyCode) {
-			if (StringUtils.isBlank(mEditTextSummary.getText().toString())
-					|| StringUtils.isBlank(mEditTextDetail.getText().toString())) {
-				alertGivingUp();
-				return true;
+			if (needSave()) {
+				saveRecord();
 			}
 		}
 		return super.onKeyDown(keyCode, event);

@@ -56,6 +56,7 @@ public class TitleBar extends RelativeLayout {
 		leftRootView.removeAllViews();
 		if (view == null) {
 			leftRootView.setVisibility(View.GONE);
+			return;
 		}
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(params);
 		leftRootView.addView(view, layoutParams);
@@ -67,6 +68,7 @@ public class TitleBar extends RelativeLayout {
 		rightRootView.removeAllViews();
 		if (view == null) {
 			rightRootView.setVisibility(View.GONE);
+			return;
 		}
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(params);
 		rightRootView.addView(view, layoutParams);

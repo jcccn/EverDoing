@@ -108,6 +108,7 @@ containing a value of this type.
         public static final int edit_summary_hint=0x7f060004;
         public static final int edit_time_hint=0x7f060003;
         public static final int isLogOn=0x7f060000;
+        public static final int toast_nothing_saved=0x7f06000e;
         public static final int toast_saved=0x7f06000d;
         public static final int widget_name=0x7f060002;
     }
