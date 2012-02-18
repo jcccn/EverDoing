@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.senseforce.everdoing.Constants;
 import com.senseforce.everdoing.R;
 import com.senseforce.framework.utils.StringUtils;
 
 public class DoingListAdapter extends BaseAdapter {
 
-	public static String KEY_START_TIME = "job_start_time";
-	public static String KEY_SUMMARY = "job_summary";
-	public static String KEY_DETAIL = "job_detail";
-	
 	private List<? extends Map<String, ?>> mData = null;
 	private LayoutInflater mInflater = null;
 	
@@ -44,7 +41,7 @@ public class DoingListAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		return Long.parseLong((String)(mData.get(position).get(Constants.KEY_JOB_TIMESTAMP)));
 	}
 
 	@Override
@@ -56,14 +53,13 @@ public class DoingListAdapter extends BaseAdapter {
             v = convertView;
         }
 		
-		int inversePosition = mData.size()-1 - position;
 		TextView timeTextView = (TextView)v.findViewById(R.id.job_start_time);
 		if (timeTextView != null) {
-			timeTextView.setText((String)(mData.get(inversePosition).get(KEY_START_TIME)));
+			timeTextView.setText((String)(mData.get(position).get(Constants.KEY_JOB_START_TIME)));
 		}
 		TextView summaryTextView = (TextView)v.findViewById(R.id.job_summary);
 		if (summaryTextView != null) {
-			String text = (String)(mData.get(inversePosition).get(KEY_SUMMARY));
+			String text = (String)(mData.get(position).get(Constants.KEY_JOB_SUMMARY));
 			summaryTextView.setText(text);
 			if (StringUtils.isBlank(text)) {
 				summaryTextView.setVisibility(View.GONE);
@@ -74,7 +70,7 @@ public class DoingListAdapter extends BaseAdapter {
 		}
 		TextView detailTextView = (TextView)v.findViewById(R.id.job_detail);
 		if (detailTextView != null) {
-			String text = (String)(mData.get(inversePosition).get(KEY_DETAIL));
+			String text = (String)(mData.get(position).get(Constants.KEY_JOB_DETAIL));
 			detailTextView.setText(text);
 			if (StringUtils.isBlank(text)) {
 				detailTextView.setVisibility(View.GONE);

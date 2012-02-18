@@ -1,21 +1,32 @@
 package com.senseforce.everdoing.services;
 
+import java.util.ArrayList;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.RemoteViews;
 
+import com.senseforce.everdoing.Constants;
+import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
 import com.senseforce.everdoing.activities.EditActivity;
+import com.senseforce.everdoing.data.DoingListDBHelper;
 import com.senseforce.everdoing.widgets.EDWidgetProvider;
 import com.senseforce.framework.utils.CalendarUtils;
+import com.senseforce.framework.utils.StringUtils;
 
 public class WidgetUpdateService extends Service {
-	boolean is_run = false;
-	boolean flag = true;
+	private boolean is_run = false;
+	private boolean flag = true;
+	private int[] textviewResIds = {R.id.widget_item_0, R.id.widget_item_1, R.id.widget_item_2,
+			R.id.widget_item_3, R.id.widget_item_4, R.id.widget_item_5, R.id.widget_item_6};
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -35,14 +46,29 @@ public class WidgetUpdateService extends Service {
 				public void run() {
 					is_run = true;
 					while (flag) {
+						
+						ArrayList<String> doingStrings = getDataList();
+						int doingCount = doingStrings.size();
+						int textviewCount = textviewResIds.length;
+						if (doingCount >= textviewCount) {
+							for (int i = 0; i < textviewCount; i++) {
+								updateViews.setTextViewText(textviewResIds[i], doingStrings.get(i));
+								updateViews.setViewVisibility(textviewResIds[i], View.VISIBLE);
+							}
+						}
+						else {
+							for (int i = 0; i < doingCount; i++) {
+								updateViews.setTextViewText(textviewResIds[i], doingStrings.get(i));
+								updateViews.setViewVisibility(textviewResIds[i], View.VISIBLE);
+							}
+							
+							for (int i = doingCount; i < textviewCount; i++) {
+								updateViews.setTextViewText(textviewResIds[i], "");
+								updateViews.setViewVisibility(textviewResIds[i], View.INVISIBLE);
+							}
+						}
+						
 						updateViews.setTextViewText(R.id.widget_title, CalendarUtils.getCurrentDateString());
-						updateViews.setTextViewText(R.id.widget_item_0, "get up");
-						updateViews.setTextViewText(R.id.widget_item_1, "have breakfast");
-						updateViews.setTextViewText(R.id.widget_item_2, "take a nap");
-						updateViews.setTextViewText(R.id.widget_item_3, "have lunch");
-						updateViews.setTextViewText(R.id.widget_item_4, "take a nap");
-						updateViews.setTextViewText(R.id.widget_item_5, "have dinner");
-						updateViews.setTextViewText(R.id.widget_item_6, "go to bed");
 						
 						Intent intent = new Intent(WidgetUpdateService.this, EditActivity.class);
 						PendingIntent pendingintent = PendingIntent.getActivity(WidgetUpdateService.this, 0, intent, 0);
@@ -59,6 +85,39 @@ public class WidgetUpdateService extends Service {
 		}
 
 	}
+	
+	private ArrayList<String> getDataList() {
+    	ArrayList<String> dataList = new ArrayList<String>();
+		DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
+		SQLiteDatabase job_db = dbhelper.getWritableDatabase();
+		Cursor cursor = job_db.rawQuery(DoingListDBHelper.SELECT_ALL, null);
+		if (cursor != null) {
+			int numColumn_summary = cursor.getColumnIndex(Constants.KEY_JOB_SUMMARY);
+			int numColumn_detail = cursor.getColumnIndex(Constants.KEY_JOB_DETAIL);
+
+			if (cursor.moveToLast()) {
+				do {
+					String doingString = "";
+					String summary = cursor.getString(numColumn_summary);
+					if ( ! StringUtils.isBlank(summary)) {
+						doingString = summary;
+					}
+					else {
+						doingString = cursor.getString(numColumn_detail);
+					}
+
+					dataList.add(doingString);
+
+				} while (cursor.moveToPrevious());
+			}
+			
+			cursor.close();
+		}
+		job_db.close();
+		dbhelper.close();
+    	
+    	return dataList;
+    }
 
 	@Override
 	public void onDestroy() {

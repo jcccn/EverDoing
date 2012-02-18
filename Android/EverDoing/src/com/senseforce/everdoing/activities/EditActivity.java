@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.senseforce.everdoing.Constants;
 import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
 import com.senseforce.everdoing.data.DoingListDBHelper;
@@ -28,13 +30,14 @@ public class EditActivity extends Activity {
 	private EditText mEditTextDetail = null;
 	private Button mButtonSave = null;
 	private Button mButtonGiveup = null;
-	private long timestamp = 0;
+	private long mTimestamp = 0;
+	private boolean isNewJob = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_activity);
-
+		
 		mEditTextTime = (EditText)findViewById(R.id.edit_time_edit_text);
 		mEditTextSummary = (EditText)findViewById(R.id.edit_summary_edit_text);
 		mEditTextDetail = (EditText)findViewById(R.id.edit_detail_edit);
@@ -42,13 +45,17 @@ public class EditActivity extends Activity {
 		mButtonGiveup = (Button)findViewById(R.id.edit_button_giveup);
 		
 		mEditTextTime.setText(CalendarUtils.getCurrentDateString(CalendarUtils.HM));
-		timestamp = Calendar.getInstance().getTimeInMillis();
 		mButtonSave.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				saveRecord();
-				finish();
+				if (isNewJob) {
+					saveRecord();
+					finish();
+				}
+				else {
+					alertEditing();
+				}
 			}
 		});
 		mButtonGiveup.setOnClickListener(new OnClickListener() {
@@ -63,6 +70,18 @@ public class EditActivity extends Activity {
 				}
 			}
 		});
+		
+		Intent receivedIntent = getIntent();
+		isNewJob = receivedIntent.getBooleanExtra(Constants.INTENT_KEY_IS_JOB_NEW, true);
+		if ( ! isNewJob)  {
+			mTimestamp = receivedIntent.getLongExtra(Constants.KEY_JOB_TIMESTAMP, 0);
+			mEditTextTime.setText(receivedIntent.getStringExtra(Constants.KEY_JOB_START_TIME));
+			mEditTextSummary.setText(receivedIntent.getStringExtra(Constants.KEY_JOB_SUMMARY));
+			mEditTextDetail.setText(receivedIntent.getStringExtra(Constants.KEY_JOB_DETAIL));
+		}
+		else {
+			mTimestamp = Calendar.getInstance().getTimeInMillis();
+		}
 
 		
 		mEditTextSummary.requestFocus();
@@ -93,11 +112,16 @@ public class EditActivity extends Activity {
         DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
         SQLiteDatabase job_db = dbhelper.getWritableDatabase();
 		ContentValues cv = new ContentValues();
-		cv.put(DoingListDBHelper.JOB_ID, timestamp);
-        cv.put(DoingListDBHelper.JOB_TIME, time);
-        cv.put(DoingListDBHelper.JOB_SUMMARY, summary);
-        cv.put(DoingListDBHelper.JOB_DETAIL, detail);
-        job_db.insert(DoingListDBHelper.TABLE_NAME, null, cv);
+		cv.put(Constants.KEY_JOB_TIMESTAMP, mTimestamp);
+        cv.put(Constants.KEY_JOB_START_TIME, time);
+        cv.put(Constants.KEY_JOB_SUMMARY, summary);
+        cv.put(Constants.KEY_JOB_DETAIL, detail);
+        if (isNewJob) {
+        	job_db.insert(DoingListDBHelper.TABLE_NAME, null, cv);
+        }
+        else {
+        	job_db.update(DoingListDBHelper.TABLE_NAME, cv, Constants.KEY_JOB_TIMESTAMP+"="+mTimestamp, null);
+        }
         job_db.close();
         dbhelper.close();
 	}
@@ -118,11 +142,33 @@ public class EditActivity extends Activity {
 		alertDialogBuiler = null;
 	}
 	
+	private void alertEditing() {
+		AlertDialog.Builder alertDialogBuiler = new AlertDialog.Builder(this);
+		alertDialogBuiler.setMessage(R.string.dialog_title_edit_commit);
+		alertDialogBuiler.setPositiveButton(R.string.button_title_yes, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				saveRecord();
+				finish();
+			}
+			
+		});
+		alertDialogBuiler.setNegativeButton(R.string.button_title_no, null);
+		alertDialogBuiler.show();
+		alertDialogBuiler = null;
+	}
+	
 	@Override
 	public boolean onKeyDown (int keyCode, KeyEvent event) {
 		if (KeyEvent.KEYCODE_BACK == keyCode) {
 			if (needSave()) {
-				saveRecord();
+				if (isNewJob) {
+					saveRecord();
+				}
+				else {
+					alertEditing();
+				}
 			}
 		}
 		return super.onKeyDown(keyCode, event);

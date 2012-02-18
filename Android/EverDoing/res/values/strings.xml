@@ -9,6 +9,8 @@
     <string name="button_text_save">Save</string>
     <string name="button_text_giveup">Give up</string>
     <string name="dialog_title_giveup">Quit without saving?</string>
+    <string name="dialog_title_edit_commit">Are you sure you want to save changes?</string>
+    <string name="dialog_title_delete_item">Are you sure you want to delete it?</string>
     
     <string name="button_title_ok">OK</string>
     <string name="button_title_cancel">Cancel</string>
@@ -17,5 +19,6 @@
     
     <string name="toast_saved">saved successfully</string>
     <string name="toast_nothing_saved">nothing to save</string>
+    <string name="toast_delete">deleted successfully</string>
 
 </resources>
