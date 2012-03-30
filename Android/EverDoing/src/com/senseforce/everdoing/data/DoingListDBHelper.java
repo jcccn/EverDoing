@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.senseforce.everdoing.Constants;
+import com.senseforce.framework.utils.CalendarUtils;
 
 public class DoingListDBHelper extends SQLiteOpenHelper {
 	
@@ -31,6 +32,10 @@ public class DoingListDBHelper extends SQLiteOpenHelper {
 		String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
         db.execSQL(sql);
         onCreate(db);
+	}
+	
+	public static String getSQL_SELECT_TODAY() {
+		return "SELECT * FROM " + TABLE_NAME + " WHERE " + Constants.KEY_JOB_TIMESTAMP  + " > " + CalendarUtils.getSmallHourTimestamp();
 	}
 
 }

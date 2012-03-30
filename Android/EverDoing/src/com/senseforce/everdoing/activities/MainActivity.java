@@ -79,7 +79,7 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
     	ArrayList<HashMap<String, Object>> dataList = new ArrayList<HashMap<String, Object>>();
 		DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
 		SQLiteDatabase job_db = dbhelper.getWritableDatabase();
-		Cursor cursor = job_db.rawQuery(DoingListDBHelper.SELECT_ALL, null);
+		Cursor cursor = job_db.rawQuery(DoingListDBHelper.getSQL_SELECT_TODAY(), null);
 		if (cursor != null) {
 			int numColumn_timestamp = cursor.getColumnIndex(Constants.KEY_JOB_TIMESTAMP);
 			int numColumn_time = cursor.getColumnIndex(Constants.KEY_JOB_START_TIME);

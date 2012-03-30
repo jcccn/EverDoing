@@ -8,9 +8,9 @@ import com.senseforce.everdoing.Constants;
 public class CalendarUtils {
 	
 	public static final String YMDHMA = "yyyy-MM-dd hh:mm a";
-	public static final String YMDHM = "yyyy-MM-dd hh:mm";
-	public static final String MDHM = "MM-dd hh:mm";
-	public static final String HM = "hh:mm";
+	public static final String YMDHM = "yyyy-MM-dd HH:mm";
+	public static final String MDHM = "MM-dd HH:mm";
+	public static final String HM = "HH:mm";
 	
 	private CalendarUtils() {
 		
@@ -29,4 +29,12 @@ public class CalendarUtils {
 		return "";
 	}
 
+	public static long getSmallHourTimestamp() {
+		Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+	}
 }
