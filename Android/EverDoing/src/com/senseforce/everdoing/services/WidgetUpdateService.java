@@ -1,23 +1,21 @@
 package com.senseforce.everdoing.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import com.senseforce.everdoing.Constants;
-import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
 import com.senseforce.everdoing.activities.EditActivity;
-import com.senseforce.everdoing.data.DoingListDBHelper;
+import com.senseforce.everdoing.data.DataProvider;
 import com.senseforce.everdoing.widgets.EDWidgetProvider;
 import com.senseforce.framework.utils.CalendarUtils;
 import com.senseforce.framework.utils.StringUtils;
@@ -47,7 +45,7 @@ public class WidgetUpdateService extends Service {
 					is_run = true;
 					while (flag) {
 						
-						ArrayList<String> doingStrings = getDataList();
+						ArrayList<String> doingStrings = getDataList(7);
 						int doingCount = doingStrings.size();
 						int textviewCount = textviewResIds.length;
 						if (doingCount >= textviewCount) {
@@ -86,35 +84,21 @@ public class WidgetUpdateService extends Service {
 
 	}
 	
-	private ArrayList<String> getDataList() {
-    	ArrayList<String> dataList = new ArrayList<String>();
-		DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
-		SQLiteDatabase job_db = dbhelper.getWritableDatabase();
-		Cursor cursor = job_db.rawQuery(DoingListDBHelper.getSQL_SELECT_TODAY(), null);
-		if (cursor != null) {
-			int numColumn_summary = cursor.getColumnIndex(Constants.KEY_JOB_SUMMARY);
-			int numColumn_detail = cursor.getColumnIndex(Constants.KEY_JOB_DETAIL);
-
-			if (cursor.moveToLast()) {
-				do {
-					String doingString = "";
-					String summary = cursor.getString(numColumn_summary);
-					if ( ! StringUtils.isBlank(summary)) {
-						doingString = summary;
-					}
-					else {
-						doingString = cursor.getString(numColumn_detail);
-					}
-
-					dataList.add(doingString);
-
-				} while (cursor.moveToPrevious());
+	private ArrayList<String> getDataList(int size) {
+		ArrayList<String> dataList = new ArrayList<String>();
+		ArrayList<HashMap<String, Object>> today_doing_list = DataProvider.instance.getTodayDataList();
+		for(int position = 0, maxSize = today_doing_list.size(); position < size && position < maxSize; position ++) {
+			String doingString = "";
+			String summary = (String)today_doing_list.get(position).get(Constants.KEY_JOB_SUMMARY);
+			if ( ! StringUtils.isBlank(summary)) {
+				doingString = summary;
 			}
-			
-			cursor.close();
+			else {
+				doingString = (String)today_doing_list.get(position).get(Constants.KEY_JOB_DETAIL);
+			}
+
+			dataList.add(doingString);
 		}
-		job_db.close();
-		dbhelper.close();
     	
     	return dataList;
     }

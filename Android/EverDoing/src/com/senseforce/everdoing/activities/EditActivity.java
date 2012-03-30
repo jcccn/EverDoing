@@ -19,6 +19,7 @@ import android.widget.EditText;
 import com.senseforce.everdoing.Constants;
 import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
+import com.senseforce.everdoing.data.DataProvider;
 import com.senseforce.everdoing.data.DoingListDBHelper;
 import com.senseforce.framework.utils.CalendarUtils;
 import com.senseforce.framework.utils.SFHelper;
@@ -127,6 +128,8 @@ public class EditActivity extends Activity {
         }
         job_db.close();
         dbhelper.close();
+        
+        DataProvider.instance.notifyDataChanged();
 	}
 	
 	private void alertGivingUp() {

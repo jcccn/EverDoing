@@ -1,5 +1,6 @@
 package com.senseforce.everdoing;
 
+import com.senseforce.everdoing.data.DataProvider;
 import com.senseforce.framework.utils.SFLog;
 
 import android.app.Application;
@@ -15,6 +16,8 @@ public class EDApplication extends Application {
 		
 		context = this;
 		SFLog.setLoggable(!("0".equals(EDApplication.context.getString(R.string.isLogOn))));
+		
+		DataProvider.instance.notifyDataChanged();
 	}
 
 }

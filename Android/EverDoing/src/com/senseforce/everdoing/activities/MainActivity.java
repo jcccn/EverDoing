@@ -1,12 +1,8 @@
 package com.senseforce.everdoing.activities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +18,7 @@ import com.senseforce.everdoing.Constants;
 import com.senseforce.everdoing.EDApplication;
 import com.senseforce.everdoing.R;
 import com.senseforce.everdoing.adapters.DoingListAdapter;
+import com.senseforce.everdoing.data.DataProvider;
 import com.senseforce.everdoing.data.DoingListDBHelper;
 import com.senseforce.framework.ui.SFPage;
 import com.senseforce.framework.ui.TitleBar;
@@ -31,7 +28,6 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
     
 	private ListView mDoingListView = null;
 	private DoingListAdapter mDoingListAdapter = null;	
-	private ArrayList<HashMap<String, Object>> mDoingArrayList = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +41,27 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
         mDoingListView.setOnItemClickListener(this);
         
         TitleBar titleBar = (TitleBar)findViewById(R.id.title_bar);
-        titleBar.setTitle(R.string.app_name);
+        titleBar.setTitle(R.string.bar_title_main);
+        
+        Button buttonHome = new Button(this);
+        buttonHome.setText(R.string.button_title_home);
+        buttonHome.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, HomeActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)(68 *Constants.density),
+        												(int)(40 * Constants.density));
+        params.addRule(RelativeLayout.CENTER_VERTICAL);
+        titleBar.setLeftView(buttonHome, params);
+        
         Button buttonNew = new Button(this);
-        buttonNew.setText("NEW");
+        buttonNew.setText(R.string.button_title_new);
         buttonNew.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -57,8 +71,7 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
 				startActivity(intent);
 			}
 		});
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)(68 *Constants.density),
-        												(int)(40 * Constants.density));
+        params = new RelativeLayout.LayoutParams((int)(68 *Constants.density), (int)(40 * Constants.density));
         params.addRule(RelativeLayout.CENTER_VERTICAL);
         titleBar.setRightView(buttonNew, params);
     }
@@ -67,50 +80,10 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
     
     @Override
 	protected void onResume() {
-    	mDoingArrayList = getDataList();
-    	mDoingListAdapter.setListData(mDoingArrayList);
     	mDoingListAdapter.notifyDataSetChanged();
 		super.onResume();
 	}
 
-
-
-	private ArrayList<HashMap<String, Object>> getDataList() {
-    	ArrayList<HashMap<String, Object>> dataList = new ArrayList<HashMap<String, Object>>();
-		DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
-		SQLiteDatabase job_db = dbhelper.getWritableDatabase();
-		Cursor cursor = job_db.rawQuery(DoingListDBHelper.getSQL_SELECT_TODAY(), null);
-		if (cursor != null) {
-			int numColumn_timestamp = cursor.getColumnIndex(Constants.KEY_JOB_TIMESTAMP);
-			int numColumn_time = cursor.getColumnIndex(Constants.KEY_JOB_START_TIME);
-			int numColumn_summary = cursor.getColumnIndex(Constants.KEY_JOB_SUMMARY);
-			int numColumn_detail = cursor.getColumnIndex(Constants.KEY_JOB_DETAIL);
-
-			if (cursor.moveToLast()) {
-				do {
-					String timestamp = String.valueOf(cursor.getLong(numColumn_timestamp));
-					String time = cursor.getString(numColumn_time);
-					String summary = cursor.getString(numColumn_summary);
-					String detail = cursor.getString(numColumn_detail);
-
-					HashMap<String, Object> aHashMap = new HashMap<String, Object>();
-					aHashMap.put(Constants.KEY_JOB_TIMESTAMP, timestamp);
-					aHashMap.put(Constants.KEY_JOB_START_TIME, time);
-					aHashMap.put(Constants.KEY_JOB_SUMMARY, summary);
-					aHashMap.put(Constants.KEY_JOB_DETAIL, detail);
-					dataList.add(aHashMap);
-
-				} while (cursor.moveToPrevious());
-			}
-			
-			cursor.close();
-		}
-		job_db.close();
-		dbhelper.close();
-    	
-    	return dataList;
-    }
-	
 	private void deleteRecord(int position, long id) {
 		SFHelper.showToast(R.string.toast_delete);
         DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
@@ -119,14 +92,13 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
         job_db.close();
         dbhelper.close();
         
-        mDoingArrayList.remove(position);
+        DataProvider.instance.notifyDataChanged();
+        
         mDoingListAdapter.notifyDataSetChanged();
 	}
     
     @Override
     public void onDestroy() {
-    	mDoingArrayList.clear();
-    	mDoingArrayList = null;
     	mDoingListAdapter = null;
     	mDoingListView = null;
     	super.onDestroy();
@@ -162,9 +134,9 @@ public class MainActivity extends SFPage implements OnItemLongClickListener, OnI
 		intent.setClass(MainActivity.this, EditActivity.class);
 		intent.putExtra(Constants.INTENT_KEY_IS_JOB_NEW, false);
 		intent.putExtra(Constants.KEY_JOB_TIMESTAMP, id);
-		intent.putExtra(Constants.KEY_JOB_START_TIME, (String)mDoingArrayList.get(position).get(Constants.KEY_JOB_START_TIME));
-		intent.putExtra(Constants.KEY_JOB_SUMMARY, (String)mDoingArrayList.get(position).get(Constants.KEY_JOB_SUMMARY));
-		intent.putExtra(Constants.KEY_JOB_DETAIL, (String)mDoingArrayList.get(position).get(Constants.KEY_JOB_DETAIL));
+		intent.putExtra(Constants.KEY_JOB_START_TIME, (String)DataProvider.instance.getTodayDataList().get(position).get(Constants.KEY_JOB_START_TIME));
+		intent.putExtra(Constants.KEY_JOB_SUMMARY, (String)DataProvider.instance.getTodayDataList().get(position).get(Constants.KEY_JOB_SUMMARY));
+		intent.putExtra(Constants.KEY_JOB_DETAIL, (String)DataProvider.instance.getTodayDataList().get(position).get(Constants.KEY_JOB_DETAIL));
 		startActivity(intent);
 		
 	}

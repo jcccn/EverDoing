@@ -16,6 +16,13 @@
     <string name="button_title_cancel">Cancel</string>
     <string name="button_title_yes">YES</string>
     <string name="button_title_no">NO</string>
+    <string name="button_title_new">NEW</string>
+    <string name="button_title_home">HOME</string>
+    
+    <string name="bar_title_home">EverDoing</string>
+    <string name="bar_title_main">Today</string>
+    
+    <string name="home_item_title">"Today's doing"</string>
     
     <string name="toast_saved">saved successfully</string>
     <string name="toast_nothing_saved">nothing to save</string>

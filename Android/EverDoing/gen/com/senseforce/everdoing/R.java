@@ -54,7 +54,7 @@ containing a value of this type.
         public static final int shape_round_top=0x7f02000a;
     }
     public static final class id {
-        public static final int doing_list=0x7f07000c;
+        public static final int doing_list=0x7f07000f;
         public static final int edit_button_area=0x7f070003;
         public static final int edit_button_giveup=0x7f070005;
         public static final int edit_button_save=0x7f070004;
@@ -64,43 +64,51 @@ containing a value of this type.
         public static final int edit_divider_2=0x7f070006;
         public static final int edit_summary_edit_text=0x7f070009;
         public static final int edit_time_edit_text=0x7f070007;
+        public static final int home_item_today=0x7f07000e;
+        public static final int home_linear_layout=0x7f07000d;
+        public static final int home_scroll_view=0x7f07000c;
         public static final int job_detail=0x7f070002;
         public static final int job_start_time=0x7f070000;
         public static final int job_summary=0x7f070001;
-        public static final int title_bar=0x7f07000d;
-        public static final int title_left_view=0x7f07000e;
-        public static final int title_right_view=0x7f07000f;
-        public static final int title_text_view=0x7f070010;
-        public static final int widget_divider_0=0x7f070013;
-        public static final int widget_divider_1=0x7f070015;
-        public static final int widget_divider_2=0x7f070017;
-        public static final int widget_divider_3=0x7f070019;
-        public static final int widget_divider_4=0x7f07001b;
-        public static final int widget_divider_5=0x7f07001d;
-        public static final int widget_divider_6=0x7f07001f;
-        public static final int widget_divider_7=0x7f070021;
-        public static final int widget_item_0=0x7f070014;
-        public static final int widget_item_1=0x7f070016;
-        public static final int widget_item_2=0x7f070018;
-        public static final int widget_item_3=0x7f07001a;
-        public static final int widget_item_4=0x7f07001c;
-        public static final int widget_item_5=0x7f07001e;
-        public static final int widget_item_6=0x7f070020;
-        public static final int widget_layout=0x7f070011;
-        public static final int widget_title=0x7f070012;
+        public static final int title_bar=0x7f070010;
+        public static final int title_left_view=0x7f070011;
+        public static final int title_right_view=0x7f070012;
+        public static final int title_text_view=0x7f070013;
+        public static final int widget_divider_0=0x7f070016;
+        public static final int widget_divider_1=0x7f070018;
+        public static final int widget_divider_2=0x7f07001a;
+        public static final int widget_divider_3=0x7f07001c;
+        public static final int widget_divider_4=0x7f07001e;
+        public static final int widget_divider_5=0x7f070020;
+        public static final int widget_divider_6=0x7f070022;
+        public static final int widget_divider_7=0x7f070024;
+        public static final int widget_item_0=0x7f070017;
+        public static final int widget_item_1=0x7f070019;
+        public static final int widget_item_2=0x7f07001b;
+        public static final int widget_item_3=0x7f07001d;
+        public static final int widget_item_4=0x7f07001f;
+        public static final int widget_item_5=0x7f070021;
+        public static final int widget_item_6=0x7f070023;
+        public static final int widget_layout=0x7f070014;
+        public static final int widget_title=0x7f070015;
     }
     public static final class layout {
         public static final int doing_list_item=0x7f030000;
         public static final int edit_activity=0x7f030001;
-        public static final int main_activity=0x7f030002;
-        public static final int title_bar=0x7f030003;
-        public static final int widget=0x7f030004;
+        public static final int home_activity=0x7f030002;
+        public static final int main_activity=0x7f030003;
+        public static final int title_bar=0x7f030004;
+        public static final int widget=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
+        public static final int bar_title_home=0x7f060011;
+        public static final int bar_title_main=0x7f060012;
         public static final int button_text_giveup=0x7f060007;
         public static final int button_text_save=0x7f060006;
         public static final int button_title_cancel=0x7f06000c;
+        public static final int button_title_home=0x7f060010;
+        public static final int button_title_new=0x7f06000f;
         public static final int button_title_no=0x7f06000e;
         public static final int button_title_ok=0x7f06000b;
         public static final int button_title_yes=0x7f06000d;
@@ -110,10 +118,11 @@ containing a value of this type.
         public static final int edit_detail_hint=0x7f060005;
         public static final int edit_summary_hint=0x7f060004;
         public static final int edit_time_hint=0x7f060003;
+        public static final int home_item_title=0x7f060013;
         public static final int isLogOn=0x7f060000;
-        public static final int toast_delete=0x7f060011;
-        public static final int toast_nothing_saved=0x7f060010;
-        public static final int toast_saved=0x7f06000f;
+        public static final int toast_delete=0x7f060016;
+        public static final int toast_nothing_saved=0x7f060015;
+        public static final int toast_saved=0x7f060014;
         public static final int widget_name=0x7f060002;
     }
     public static final class xml {
