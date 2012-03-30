@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/widget_divider_0"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_title"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -44,19 +44,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_1"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_0"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_1"
@@ -67,19 +68,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_2"
@@ -90,19 +92,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_3"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_2"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_3"
@@ -113,19 +116,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_4"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_3"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_4"
@@ -136,19 +140,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_5"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_4"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_5"
@@ -159,19 +164,20 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_6"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_5"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_item_6"
@@ -182,18 +188,19 @@
         android:layout_marginRight="5dp"
         android:drawableLeft="@drawable/dot_gray"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/widget_divider_7"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/widget_item_6"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/light_gray"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
 </RelativeLayout>

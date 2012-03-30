@@ -90,7 +90,7 @@ public class WidgetUpdateService extends Service {
     	ArrayList<String> dataList = new ArrayList<String>();
 		DoingListDBHelper dbhelper = new DoingListDBHelper(EDApplication.context);
 		SQLiteDatabase job_db = dbhelper.getWritableDatabase();
-		Cursor cursor = job_db.rawQuery(DoingListDBHelper.SELECT_ALL, null);
+		Cursor cursor = job_db.rawQuery(DoingListDBHelper.getSQL_SELECT_TODAY(), null);
 		if (cursor != null) {
 			int numColumn_summary = cursor.getColumnIndex(Constants.KEY_JOB_SUMMARY);
 			int numColumn_detail = cursor.getColumnIndex(Constants.KEY_JOB_DETAIL);

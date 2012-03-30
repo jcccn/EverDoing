@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -49,6 +50,7 @@ public class EditActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				hideSoftKeyboard();
 				if (isNewJob) {
 					saveRecord();
 					finish();
@@ -62,6 +64,7 @@ public class EditActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				hideSoftKeyboard();
 				if (needSave()) {
 					alertGivingUp();
 				}
@@ -157,6 +160,14 @@ public class EditActivity extends Activity {
 		alertDialogBuiler.setNegativeButton(R.string.button_title_no, null);
 		alertDialogBuiler.show();
 		alertDialogBuiler = null;
+	}
+	
+	private void hideSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		View view = this.getCurrentFocus();
+		if (view != null) {
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 	
 	@Override
