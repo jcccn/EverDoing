@@ -21,8 +21,16 @@
     
     <string name="bar_title_home">EverDoing</string>
     <string name="bar_title_main">Today</string>
+    <string name="bar_title_this_week">This Week</string>
+    <string name="bar_title_last_week">Last Week</string>
+    <string name="bar_title_this_month">This Month</string>
+    <string name="bar_title_last_month">Last Month</string>
     
-    <string name="home_item_title">"Today's doing"</string>
+    <string name="home_item_title_today">"Today's doing"</string>
+    <string name="home_item_title_this_week">"This week's"</string>
+    <string name="home_item_title_last_week">"Last week's"</string>
+    <string name="home_item_title_this_month">"This month's"</string>
+    <string name="home_item_title_last_month">"Last month's"</string>
     
     <string name="toast_saved">saved successfully</string>
     <string name="toast_nothing_saved">nothing to save</string>

@@ -26,14 +26,114 @@
                 android:id="@+id/home_item_today"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/list_selector_default"
                 android:clickable="true"
-                android:drawableLeft="@drawable/dot"
+                android:drawableLeft="@drawable/home_icon_today"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:singleLine="true"
-                android:text="@string/home_item_title"
+                android:text="@string/home_item_title_today"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
+
+            <View
+                android:id="@+id/home_item_divider_0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/home_item_today"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_dashed_line" />
+
+            <LinearLayout
+                android:id="@+id/home_items_week"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_item_divider_0"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/home_item_this_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_selector_default"
+                    android:clickable="true"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_icon_week"
+                    android:gravity="center|top"
+                    android:singleLine="true"
+                    android:text="@string/home_item_title_this_week"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/home_item_last_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_selector_default"
+                    android:clickable="true"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_icon_week"
+                    android:gravity="center|top"
+                    android:singleLine="true"
+                    android:text="@string/home_item_title_last_week"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/home_item_divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/home_items_week"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_dashed_line" />
+
+            <LinearLayout
+                android:id="@+id/home_items_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_item_divider_1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/home_item_this_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_selector_default"
+                    android:clickable="true"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_icon_month"
+                    android:gravity="center|top"
+                    android:singleLine="true"
+                    android:text="@string/home_item_title_this_month"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/home_item_last_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_selector_default"
+                    android:clickable="true"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_icon_month"
+                    android:gravity="center|top"
+                    android:singleLine="true"
+                    android:text="@string/home_item_title_last_month"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 

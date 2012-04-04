@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
-
+    
     <application
         android:name=".EDApplication"
         android:debuggable="false"
@@ -48,6 +48,12 @@
             android:name=".activities.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".activities.ReviewActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
